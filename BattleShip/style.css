@@ -1,0 +1,326 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('./assets/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #f5f5f5;
+    margin: 20px;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: 0;
+}
+
+h1 {
+    color: #61dafb;
+}
+
+.game-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.player-board-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.ship-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 200px;
+}
+#play-button {
+    animation: bounce 1s infinite;
+
+    background: linear-gradient(135deg, #00c6ff, #0072ff); 
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+}
+
+.explosion {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('./assets/explosion.gif');
+    background-size: cover;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+  
+  @keyframes explode {
+    from {
+      background-position: 0px;
+    }
+    to {
+      background-position: -512px; /* 64px * 8 frames */
+    }
+  }
+  
+
+#play-button:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1); 
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+    60% {
+        transform: translateY(-8px);
+    }
+}
+
+
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+    background-image: url('assets/tablero_final.png');
+    background-size: cover;
+    padding: 15px;
+    margin: 20px;
+    border: 3px solid #666;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.cell {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cell.ship {
+    background-color: transparent;
+    border: none;
+    position: relative;
+}
+
+.cell.ship::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+}
+
+.cell.ship.destroyer::before {
+    background-image: url('./assets/destructor.png');
+}
+
+.cell.ship.submarine::before {
+    background-image: url('./assets/submarino.png');
+}
+
+.cell.ship.cruiser::before {
+    background-image: url('./assets/crucero.png');
+}
+
+.cell.ship.battleship::before {
+    background-image: url('./assets/acorazado.png');
+}
+
+.cell.ship.carrier::before {
+    background-image: url('./assets/porta_Aviones.png');
+}
+
+
+.cell.ship.destroyer::before {
+    transform: scale(1.2);
+}
+
+.cell.ship.submarine::before {
+    transform: scale(1.1);
+}
+
+.cell.ship.cruiser::before {
+    transform: scale(1.15);
+}
+
+.cell.ship.battleship::before {
+    transform: scale(1.1);
+}
+
+.cell.ship.carrier::before {
+    transform: scale(1.05);
+}
+
+.cell.hit {
+    background-color: rgba(255, 0, 0, 0.3);
+    border: 2px solid #ff0000;
+}
+
+.cell.miss {
+    background-color: rgba(0, 255, 0, 0.2);
+    border: 2px solid #00ff00;
+}
+
+.cell.highlight {
+    background-color: rgba(255, 255, 0, 0.2);
+    border: 2px solid #ffff00;
+}
+
+#ship-selection {
+    background-color: rgba(240, 240, 240, 0.9);
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#ships-to-place {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.ship-to-place {
+    background-color: #666;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.ship-to-place img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+.ship-to-place:hover {
+    background-color: #888;
+    transform: scale(1.05);
+}
+
+#rotate-button, #random-ships-button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#rotate-button:hover, #random-ships-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none;
+}
+
+.message-area {
+    text-align: center;
+    margin: 20px;
+    font-size: 1.2em;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 5px;
+    min-width: 300px;
+}
+
+.controls {
+    text-align: center;
+    margin: 20px;
+}
+
+.controls button {
+    margin: 0 10px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.controls button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.controls button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#computer-grid .cell.hit {
+    background-color: rgba(255, 77, 77, 0.3);
+    border: 2px solid #ff4d4d;
+}
+
+#computer-grid .cell.miss {
+    background-color: rgba(77, 166, 255, 0.2);
+    border: 2px solid #4da6ff;
+}
+
+.torpedo-img {
+    position: absolute;
+    width: 30px;
+    animation: launch 0.5s linear forwards;
+  }
+  

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="start-screen.css">
+    <link rel="icon" href="./assets/iconoAncla.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="overlay"></div>
+    <div id="start-screen">
+        <h1>Battleship</h1>
+        <button id="play-button">Comenzar Juego</button>
+    </div>
+
+    <div id="game-area" class="hidden">
+        <h1>Battleship</h1>
+        <div class="game-container">
+            <div class="player-area">
+                <h2>Tu Tablero</h2>
+                <div class="player-board-container">
+                    <div id="player-grid" class="grid"></div>
+                    <div class="ship-controls">
+                        <div id="ship-selection">
+                            <h3>Coloca tus barcos</h3>
+                            <div id="ships-to-place"></div>
+                        </div>
+                        <div class="control-buttons">
+                            <button id="rotate-button">Rotar Barco (R)</button>
+                            <button id="random-ships-button">Colocar Barcos Aleatoriamente</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="computer-area">
+                <h2>Tablero del Enemigo</h2>
+                <div id="computer-grid" class="grid"></div>
+            </div>
+        </div>
+        <div class="message-area">
+            <p id="message"></p>
+        </div>
+        <div class="controls">
+            <button id="start-button" disabled>Comenzar Juego</button>
+            <button id="reset-button">Reiniciar Juego</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="start-screen.js"></script>
+</body>
+</html>
